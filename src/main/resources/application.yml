@@ -1,0 +1,16 @@
+server:
+  port: 8989
+
+spring:
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+      database: imageCompressor
+      username: root
+      password: root
+      authentication-database: admin
+  servlet:
+    multipart:
+      max-file-size: 512MB
+      max-request-size: 512MB
