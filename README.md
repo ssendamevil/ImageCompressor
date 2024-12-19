@@ -1,19 +1,43 @@
-ImageCompressor
+# ImageCompressor Benchmark
 
-Examples: 
-Webp: 2MB  - ![blob](https://github.com/user-attachments/assets/7796a4d5-29a6-4b4d-8cfc-9a90945fc3b1)
+### Сжимаемое изображение: 
+**Original image**: 2.7 MB  
+![Original](https://github.com/user-attachments/assets/3cdf7a68-e178-407e-b063-fc630adfa19a)
 
-After compression 
-40kB - 
-![photo](https://github.com/user-attachments/assets/3438a418-cf71-44d7-9f64-96be3d09c467)
+#### PNG Compression
+| Тип компрессии       | Используемая библиотека     | Уровень качества | Уменьшение размера | Время выполнения | Результат       |
+|-----------------------|-----------------------------|------------------|---------------------|------------------|-----------------|
+| **Lossy Compression** | Javax.ImageIO              | 30%             | 94%                 | 908 мс          | 2.7 MB → 152 kB |
+|                       | Javax.ImageIO              | 50%             | 92%                 | 956 мс          | 2.7 MB → 210 kB |
+|                       | Javax.ImageIO              | 90%             | 86%                 | 926 мс          | 2.7 MB → 379 kB |
+| **Lossless Compression** | PngTastic                | 90%             | 7%                  | 16.14 сек       | 2.7 MB → 2.52 MB |
 
+---
 
-Качетсве сжимаемого рисунка взято: 
-Original image: 2,7 MB
-![оригинал](https://github.com/user-attachments/assets/3cdf7a68-e178-407e-b063-fc630adfa19a)
-PNG:
-сжатие с помощью библиотеки Javax.ImageIO - уровень сжатия 86% 
-Результат: 2,7 MB -> 379 kB
-![PNGImageIO90p](https://github.com/user-attachments/assets/61fc4af0-0f28-4824-bad3-e5bf22b1b9b6)
+### Сжимаемое изображение:  
+**Original image**: 175 kB  
+![Original JPEG](https://github.com/user-attachments/assets/97c07096-edca-4af8-a968-594fa9131fcf)
 
+#### JPEG (JPG) Compression
+| Тип компрессии       | Используемая библиотека     | Уровень качества | Уменьшение размера | Время выполнения | Результат       |
+|-----------------------|-----------------------------|------------------|---------------------|------------------|-----------------|
+| **Lossy Compression** | Thumbnails                 | 30%             | 34%                 | 849 мс          | 175 kB → 115 kB |
+|                       | Thumbnails                 | 50%             | 56%                 | 817 мс          | 175 kB → 77 kB  |
+|                       | Thumbnails                 | 90%             | 81%                 | 692 мс          | 175 kB → 33 kB  |
+|                       | Javax.ImageIO              | 30%             | 67%                 | 849 мс          | 175 kB → 58 kB  |
+|                       | Javax.ImageIO              | 50%             | 56%                 | 817 мс          | 175 kB → 78 kB  |
+|                       | Javax.ImageIO              | 70%             | 34%                 | 692 мс          | 175 kB → 115 kB |
+
+---
+
+### Сжимаемое изображение:
+**Original image**: 2 MB  
+![Original WEBP](https://github.com/user-attachments/assets/7796a4d5-29a6-4b4d-8cfc-9a90945fc3b1)
+
+#### WEBP Compression
+| Тип компрессии       | Используемая библиотека     | Уровень качества | Уменьшение размера | Время выполнения | Результат       |
+|-----------------------|-----------------------------|------------------|---------------------|------------------|-----------------|
+| **Lossy Compression** | Javax.Webp-ImageIO         | 30%             | 99%                 | 849 мс          | 2 MB → 25 kB    |
+|                       | Javax.Webp-ImageIO         | 50%             | 98%                 | 1.85 сек        | 2 MB → 32 kB    |
+|                       | Javax.Webp-ImageIO         | 90%             | 96%                 | 969 мс          | 2 MB → 89 kB    |
 
