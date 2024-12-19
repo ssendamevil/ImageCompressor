@@ -14,6 +14,8 @@
 
 ---
 
+Результаты: https://drive.google.com/drive/folders/1z_E-s1yfyl0xB00H22FLQuGEtuGmoMQa?usp=drive_link
+
 ### Сжимаемое изображение:  
 **Original image**: 175 kB  
 ![Original JPEG](https://github.com/user-attachments/assets/97c07096-edca-4af8-a968-594fa9131fcf)
@@ -30,6 +32,8 @@
 
 ---
 
+Результаты: https://drive.google.com/drive/folders/1Qbg3y3aF50u6yzb8b990-v-LKb7yzsZ_?usp=drive_link
+
 ### Сжимаемое изображение:
 **Original image**: 2 MB  
 ![Original WEBP](https://github.com/user-attachments/assets/7796a4d5-29a6-4b4d-8cfc-9a90945fc3b1)
@@ -41,3 +45,4 @@
 |                       | Javax.Webp-ImageIO         | 50%             | 98%                 | 1.85 сек        | 2 MB → 32 kB    |
 |                       | Javax.Webp-ImageIO         | 90%             | 96%                 | 969 мс          | 2 MB → 89 kB    |
 
+Результаты: https://drive.google.com/drive/folders/1u6zoFFtl-5DtzKy6CXvGIxdGT9EMfiul?usp=drive_link
