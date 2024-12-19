@@ -14,7 +14,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class WebpCompressor {
-    public static InputStream compressImageIOWebp(BufferedImage image, Float compressionQuality) throws IOException {
+    public static InputStream compressImageIOWebp(BufferedImage image, Float compressionQuality) throws IOException, NullPointerException {
+        if(compressionQuality == null) {
+            compressionQuality = 0.5f;
+        }
+        if(image == null){
+            throw new NullPointerException("Image is null");
+        }
         ByteArrayOutputStream compressed = new ByteArrayOutputStream();
         try (ImageOutputStream outputStream = ImageIO.createImageOutputStream(compressed)){
             ImageWriter writer = ImageIO.getImageWritersByFormatName("webp").next();

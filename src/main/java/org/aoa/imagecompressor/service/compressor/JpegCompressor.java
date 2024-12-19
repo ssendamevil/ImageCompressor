@@ -23,7 +23,10 @@ public class JpegCompressor {
         return new ByteArrayInputStream(outputStream.toByteArray());
     }
 
-    public static InputStream compressImageIOJpeg(BufferedImage originalImage, Float compressQuality) throws IOException {
+    public static InputStream compressImageIOJpeg(BufferedImage originalImage, Float compressQuality) throws IOException, NullPointerException {
+        if(originalImage == null) {
+            throw new NullPointerException("Original image is null");
+        }
         ByteArrayOutputStream compressed = new ByteArrayOutputStream();
         try (ImageOutputStream outputStream = ImageIO.createImageOutputStream(compressed)) {
             ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpeg").next();

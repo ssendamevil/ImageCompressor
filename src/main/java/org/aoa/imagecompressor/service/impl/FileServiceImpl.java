@@ -42,16 +42,16 @@ public class FileServiceImpl implements FileService {
         return gridFsTemplate.getResource(gridFSFile);
     }
 
-    private InputStream compressFile(MultipartFile file) throws IOException {
+    private InputStream compressFile(MultipartFile file) throws IOException, IllegalArgumentException {
         InputStream inputStream = file.getInputStream();
         BufferedImage inputImage = ImageIO.read(inputStream);
-        if (inputImage == null) {
-            throw new IOException("Failed to read image from file.");
-        }
-
         String contentType = file.getContentType();
         if (contentType == null || !contentType.startsWith("image/")) {
-            throw new IllegalArgumentException("File is not a valid image.");
+            throw new IllegalArgumentException("File is not a valid image file.");
+        }
+
+        if (inputImage == null) {
+            throw new IOException("Failed to read image from file.");
         }
 
         if (contentType.equals("image/png")) {
