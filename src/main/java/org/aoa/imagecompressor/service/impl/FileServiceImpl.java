@@ -1,17 +1,15 @@
 package org.aoa.imagecompressor.service.impl;
 
-import com.googlecode.pngtastic.core.PngImage;
-import com.googlecode.pngtastic.core.PngOptimizer;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import lombok.AllArgsConstructor;
-import net.coobird.thumbnailator.Thumbnails;
 import org.aoa.imagecompressor.service.FileService;
-import org.aoa.imagecompressor.service.compressor.ImageCompressor;
+import org.aoa.imagecompressor.service.compressor.JpegCompressor;
+import org.aoa.imagecompressor.service.compressor.PngCompressor;
+import org.aoa.imagecompressor.service.compressor.WebpCompressor;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
@@ -26,7 +24,6 @@ import java.io.*;
 @Service
 public class FileServiceImpl implements FileService {
     private final GridFsTemplate gridFsTemplate;
-    private final GridFsOperations gridFsOperations;
 
     @Override
     public String addFile(String file, MultipartFile filepart) throws IOException, InterruptedException {
@@ -46,8 +43,8 @@ public class FileServiceImpl implements FileService {
     }
 
     private InputStream compressFile(MultipartFile file) throws IOException {
-
-        BufferedImage inputImage = ImageIO.read(file.getInputStream());
+        InputStream inputStream = file.getInputStream();
+        BufferedImage inputImage = ImageIO.read(inputStream);
         if (inputImage == null) {
             throw new IOException("Failed to read image from file.");
         }
@@ -58,11 +55,11 @@ public class FileServiceImpl implements FileService {
         }
 
         if (contentType.equals("image/png")) {
-            return ImageCompressor.compressPng(inputImage, 0.9f, "PNG");
-        }else if(contentType.equals("image/jpeg")) {
-            return ImageCompressor.compressJpeg(file.getInputStream());
+            return PngCompressor.compressImageIOPng(inputImage, 0.9f);
+        }else if(contentType.equals("image/jpeg") || contentType.equals("image/jpg")) {
+            return JpegCompressor.compressImageIOJpeg(inputImage, 0.9f);
         }else {
-            return ImageCompressor.compressWebp(inputImage);
+            return WebpCompressor.compressImageIOWebp(inputImage, 0.9f);
         }
     }
 }
