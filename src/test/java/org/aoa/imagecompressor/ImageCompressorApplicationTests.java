@@ -150,7 +150,7 @@ class ImageCompressorApplicationTests {
         // Create a simple BufferedImage for testing
         BufferedImage testImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
 
-        InputStream compressedImage = ImageCompressor.compressImageIOWebp(testImage, 0.5f);
+        InputStream compressedImage= WebpCompressor.compressImageIOWebp(testImage, 0.5f);
 
         assertNotNull(compressedImage, "Compressed image should not be null.");
         assertTrue(compressedImage.available() > 0, "Compressed image should have content.");
