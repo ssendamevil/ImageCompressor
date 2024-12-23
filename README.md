@@ -11,6 +11,9 @@
 |                       | Javax.ImageIO              | 50%             | 92%                 | 956 мс          | 2.7 MB → 210 kB |
 |                       | Javax.ImageIO              | 90%             | 86%                 | 926 мс          | 2.7 MB → 379 kB |
 | **Lossless Compression** | PngTastic                | 90%             | 7%                  | 16.14 сек       | 2.7 MB → 2.52 MB |
+|                       | PngQuant                  | 30%                  | 82%                    | 903 мс           | 537 KB → 97 KB  |
+|                       | PngQuant                  | 50%                  | 80%                    | 903 мс           | 537 KB → 109 KB |
+|                       | PngQuant                  | 90%                  | 69%                    | 903 мс           | 537 KB → 168 KB |
 
 ---
 
