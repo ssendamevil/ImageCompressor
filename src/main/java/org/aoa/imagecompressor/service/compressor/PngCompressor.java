@@ -60,24 +60,20 @@ public class PngCompressor implements ImageCompressor {
     }
 
     public static InputStream compressImageUsingPngQuant(InputStream originalImage) throws IOException {
-        File workingDir = new File(System.getProperty("user.home") + "/Downloads");
+        Path tempDir = Files.createTempDirectory("file-service");
 
-        if (!workingDir.exists() || !workingDir.isDirectory()) {
-            throw new IOException("Working directory does not exist: " + workingDir.getAbsolutePath());
-        }
-
-        Path tempInputFile = Files.createTempFile(workingDir.toPath(), "input", ".png");
-        Path tempOutputFile = workingDir.toPath().resolve("outputFrom.png");;
+        Path tempInputFile = Files.createTempFile(tempDir,"input", ".png");
+        Path tempOutputFile = tempDir.resolve("outputFrom.png");
         Files.copy(originalImage, tempInputFile, StandardCopyOption.REPLACE_EXISTING);
 
         try {
-            int exitCode = getExitCode(tempInputFile, workingDir);
+            int exitCode = getExitCode(tempInputFile, tempDir);
 
             if (exitCode != 0) {
                 throw new IOException("pngquant failed with exit code " + exitCode);
             }
 
-            return new ByteArrayInputStream(Files.readAllBytes(tempOutputFile));
+            return new ByteArrayInputStream(Files.readAllBytes(tempInputFile));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new IOException("Image compression was interrupted", e);
@@ -87,12 +83,12 @@ public class PngCompressor implements ImageCompressor {
         }
     }
 
-    private static int getExitCode(Path tempInputFile, File workingDir) throws IOException, InterruptedException {
+    private static int getExitCode(Path tempInputFile, Path tempDir) throws IOException, InterruptedException {
         String[] command = {
                 "docker",
                 "run",
                 "--rm",
-                "-v", workingDir.getAbsolutePath() + ":/data",
+                "-v",tempDir + ":/data",
                 "kolyadin/pngquant",
                 "--quality=90",
                 "--output", "/data/outputFrom.png",
@@ -100,10 +96,9 @@ public class PngCompressor implements ImageCompressor {
         };
 
         ProcessBuilder builder = new ProcessBuilder(command);
-        builder.directory(workingDir);
+        builder.directory(tempDir.toFile());
 
         Process process = builder.start();
-        int exitCode = process.waitFor();
-        return exitCode;
+        return process.waitFor();
     }
 }
