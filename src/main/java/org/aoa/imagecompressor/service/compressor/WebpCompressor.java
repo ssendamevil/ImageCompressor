@@ -13,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class WebpCompressor {
+public class WebpCompressor implements ImageCompressor {
     public static InputStream compressImageIOWebp(BufferedImage image, Float compressionQuality) throws IOException, NullPointerException {
         if(compressionQuality == null) {
             compressionQuality = 0.5f;

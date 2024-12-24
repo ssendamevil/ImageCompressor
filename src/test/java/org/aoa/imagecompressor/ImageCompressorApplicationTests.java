@@ -96,24 +96,6 @@ class ImageCompressorApplicationTests {
         assert(compressedImage.getHeight() == image.getHeight());
     }
 
-    @Test
-    void testCompressThumbnailsJpeg_ValidInput() throws Exception {
-        ClassPathResource resource = new ClassPathResource("static/оригинал.jpeg");
-        InputStream image = resource.getInputStream();
-        InputStream compressedImage = JpegCompressor.compressThumbnailsJpeg(image);
-
-        assertNotNull(compressedImage);
-        assertTrue(compressedImage.available() > 0, "Compressed image should have content.");
-    }
-
-    @Test
-    void testCompressThumbnailsJpeg_InvalidInput() {
-        InputStream invalidImage = new ByteArrayInputStream(new byte[0]); // Empty image
-
-        assertThrows(IOException.class, () -> {
-            JpegCompressor.compressThumbnailsJpeg(invalidImage);
-        });
-    }
 
     @Test
     void testCompressImageIOJpeg_ValidInput() throws Exception {

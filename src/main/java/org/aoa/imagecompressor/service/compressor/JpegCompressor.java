@@ -12,13 +12,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class JpegCompressor {
+public class JpegCompressor implements ImageCompressor {
 
-    public static InputStream compressThumbnailsJpeg(InputStream inputStream) throws IOException {
+    public static InputStream compressThumbnailsJpeg(InputStream inputStream, double compressQuality) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         Thumbnails.of(inputStream)
                 .scale(1)
-                .outputQuality(0.1)
+                .outputQuality(compressQuality)
                 .toOutputStream(outputStream);
         return new ByteArrayInputStream(outputStream.toByteArray());
     }

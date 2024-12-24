@@ -15,7 +15,6 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -55,9 +54,9 @@ public class FileServiceImpl implements FileService {
         }
 
         if (contentType.equals("image/png")) {
-            return PngCompressor.compressImageIOPng(inputImage, 0.9f);
+            return PngCompressor.compressImageUsingPngQuant(file.getInputStream());
         }else if(contentType.equals("image/jpeg") || contentType.equals("image/jpg")) {
-            return JpegCompressor.compressImageIOJpeg(inputImage, 0.9f);
+            return JpegCompressor.compressThumbnailsJpeg(file.getInputStream(), 0.9);
         }else {
             return WebpCompressor.compressImageIOWebp(inputImage, 0.9f);
         }
