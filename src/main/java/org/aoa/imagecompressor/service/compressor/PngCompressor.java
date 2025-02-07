@@ -39,6 +39,7 @@ public class PngCompressor implements ImageCompressor {
 
             newBufferedImage.flush();
             jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+            jpgWriteParam.setCompressionType(jpgWriteParam.getCompressionType());
             jpgWriteParam.setCompressionQuality(compressQuality);
 
             jpgWriter.setOutput(outputStream);
